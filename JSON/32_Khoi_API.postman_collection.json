@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "121eb146-c22a-4648-9b9d-4a15e00d993c",
+		"name": "32_Khoi_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34625376",
+		"_collection_link": "https://www.postman.com/security-observer-55201970/workspace/dummyjson/collection/34625376-121eb146-c22a-4648-9b9d-4a15e00d993c?action=share&source=collection_link&creator=34625376"
+	},
+	"item": [
+		{
+			"name": "tc1_get_products_32_khoi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra mã trạng thái phản hồi là 200\r",
+							"pm.test(\"Mã trạng thái phản hồi là 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra dữ liệu phản hồi chứa ít nhất một sản phẩm\r",
+							"pm.test(\"Dữ liệu phản hồi chứa ít nhất một sản phẩm\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData.products.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"// Kiểm tra dữ liệu phản hồi có chứa nhiều hơn 100 product\r",
+							"pm.test(\"Dữ liệu phản hồi chứa nhiều hơn 100 product\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData.products.length).to.be.above(100);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummyjson.com/products/",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tc2_get_filter__32_khoi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra mã trạng thái phản hồi là 200\r",
+							"pm.test(\"Mã trạng thái phản hồi là 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\t\r",
+							"\r",
+							"\r",
+							"pm.test(\"Kiểm tra có tìm được tất cả product có chứa title: phone\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var products = data.products;\r",
+							"\r",
+							"    pm.expect(products.length).to.be.above(0); // Kiểm tra xem có ít nhất một sản phẩm trong mảng \"products\"\r",
+							"\r",
+							"    products.forEach(function (product) {\r",
+							"        var title = product.title.toLowerCase();\r",
+							"        if (title.includes(\"phone\")) {\r",
+							"            pm.expect(title).to.include(\"phone\");\r",
+							"        }\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/products/search?q=phone",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"products",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "phone"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tc3_post_add_product_32_khoi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Kiểm tra yêu cầu 'add' đã thành công dựa trên trường 'id'\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"    pm.expect(responseData.id).to.equal(101);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"but cua khoi\"\r\n    \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/products/add",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"products",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tc4_delete_product_32_khoi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Kiểm tra trường 'isDeleted' có giá trị bằng true\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData.isDeleted).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/products/1",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tc5_put_update_product_32_khoi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra trường \"title\" đã được cập nhật thành công\r",
+							"pm.test(\"Kiểm tra trường 'title' đã được cập nhật thành công\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData.title).to.equal(\"iPhone Galaxy +1\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"iPhone Galaxy +1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/products/1",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
