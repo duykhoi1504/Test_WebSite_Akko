@@ -57,9 +57,14 @@ namespace UnitTest_32_Khoi_QuanLyGioHang
             IWebElement countCartAfter = driver.FindElement(By.XPath("/html/body/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div/span"));
             int actual = int.Parse(countCartAfter.Text);
             int expected = 1;
-
+    
             // Kiểm tra
-            //chuẩn bị trong giỏ hàng không có sản phẩm(emty)
+            /*
+             chuẩn bị trong giỏ hàng không có sản phẩm(emty)
+                Thực hiện: thêm 1 sản phẩm và nhấp vào giỏ xem kết quả
+            kết quả mong muốn: sản phẩm mới dược thêm
+             */
+           
             Assert.AreEqual(expected, actual, "Failed to add product from cart.");
         }
         [TestMethod]
@@ -86,22 +91,25 @@ namespace UnitTest_32_Khoi_QuanLyGioHang
             //nhấn vào icon giỏ hàng
             driver.FindElement(By.CssSelector(".elms_shop_cart.akko_cart_icon.elms_shop_cart > a")).Click();
 
+
+            Thread.Sleep(2000);
             //xóa dơn hàng
             driver.FindElement(By.LinkText("×")).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
 
             //Gán giá trị tổng sản phẩm
             IWebElement countCartAfter = driver.FindElement(By.XPath("/html/body/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div/span"));
             int actual = int.Parse(countCartAfter.Text);
             int expected = 1;
+            Console.WriteLine(actual + " and " + expected);
             /*
-             Kiểm tra
-            chuẩn bị trong giỏ hàng ít nhất 2 sản phẩm khác nhau
+            Chuẩn bị:
+            trong giỏ hàng ít nhất 2 sản phẩm khác nhau
             sp1:1
             sp2:1 
-            kết quả:
-             Số lượng sp:1
+            Thực hiện: xóa 1 sp;
+            kết quả:Số lượng sp:1
              */
 
             Assert.AreEqual(expected, actual, "Failed to remove product from cart.");
@@ -127,9 +135,6 @@ namespace UnitTest_32_Khoi_QuanLyGioHang
             driver.FindElement(By.ClassName("login_btn")).Click();
             Thread.Sleep(1000);
 
-
-
-
             //nhấn vào icon giỏ hàng
             driver.FindElement(By.CssSelector(".elms_shop_cart.akko_cart_icon.elms_shop_cart > a")).Click();
             Thread.Sleep(2000);
@@ -148,10 +153,13 @@ namespace UnitTest_32_Khoi_QuanLyGioHang
             int actual = int.Parse(countCartAfter.Text);
             Console.WriteLine(actual);
             int expected = 2;
-            // Kiểm tra
-            //chuẩn bị trong giỏ hàng có 1 sp số lượng = 1 
-            //tổng sp=1;
-            //expect=2;
+            /*
+            Kiểm tra
+            chuẩn bị trong giỏ hàng có 1 sp số lượng = 1 
+            tổng sp ban đầu=1;
+            kết quả:
+            tổng sp sau khi thêm :2
+             */
             Assert.AreEqual(expected, actual, "Failed to update product Count from cart.");
         }
         [TestMethod]
@@ -274,12 +282,46 @@ namespace UnitTest_32_Khoi_QuanLyGioHang
             }
 
             /*
-             chuẩn bị: nhiều hơn 2 đợn hàng khác nhau
+            chuẩn bị: nhiều hơn 2 đợn hàng khác nhau
+            thực hiện: xóa toàn bô đơn hàng trong giỏ:
             kết quả mong muốn: không còn đơn hàng nào trong giỏ
              */
             bool expected = true;
             bool actual = isEmty;
             Assert.AreEqual(expected, actual, "Delete All From Cart is FAIL");
+        }
+        [TestMethod]
+        public void Test_HienThiChiTietDonHangTrongGio_32_Khoi()
+        {
+            //32_Khoi
+            //tat man den
+            ChromeDriverService chrome_khoi_32 = ChromeDriverService.CreateDefaultService();
+            chrome_khoi_32.HideCommandPromptWindow = true;
+            IWebDriver driver = new ChromeDriver(chrome_khoi_32);
+            //gọi trang web
+            driver.Navigate().GoToUrl("https://en.akkogear.com/");
+            Thread.Sleep(2000);
+
+            //Đăng nhập vào trang web
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div[2]/div/div[1]/div[2]/a")).Click();
+            driver.FindElement(By.Name("user_name")).SendKeys("dorapoke24@gmail.com");
+            driver.FindElement(By.CssSelector("input[type='password']")).SendKeys("khoi123456");
+            driver.FindElement(By.ClassName("login_btn")).Click();
+            Thread.Sleep(2000);
+
+            //nhấn vào icon gioie hàng
+            driver.FindElement(By.CssSelector(".elms_shop_cart.akko_cart_icon.elms_shop_cart > a")).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.LinkText("MU01 Mountain Seclusion - Akko V3 Piano Pro")).Click();
+            Thread.Sleep(2000);
+            /*
+             chuẩn bị:MU01 Mountain Seclusion
+             Thực hiện: nhấn vào sản phẩm
+            kết quả mong muốn: hiển thị giao diện chi tiết đơn hàng MU01 Mountain Seclusion
+             */
+            string expected = "https://en.akkogear.com/product/mu01-mountain-seclusion-mechanical-keyboard/?attribute_switch=Akko+V3+Piano+Pro";
+           string actual = driver.Url;
+            Assert.AreEqual(expected, actual, "watch detail product From Cart is FAIL");
         }
     }
 }
