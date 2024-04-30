@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "32_Khoi_N1_KiemThuWebSiteAk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_32_Khoi_Login", "UnitTest_32_Khoi_Login\UnitTest_32_Khoi_Login.csproj", "{91613AB5-303C-48AE-8424-58884872927F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_32_Khoi_QuanLyGioHang", "UnitTest_32_Khoi_QuanLyGioHang\UnitTest_32_Khoi_QuanLyGioHang.csproj", "{CAB426BB-604B-40B9-A783-B1B77575985B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{91613AB5-303C-48AE-8424-58884872927F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91613AB5-303C-48AE-8424-58884872927F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91613AB5-303C-48AE-8424-58884872927F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB426BB-604B-40B9-A783-B1B77575985B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB426BB-604B-40B9-A783-B1B77575985B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB426BB-604B-40B9-A783-B1B77575985B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB426BB-604B-40B9-A783-B1B77575985B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
