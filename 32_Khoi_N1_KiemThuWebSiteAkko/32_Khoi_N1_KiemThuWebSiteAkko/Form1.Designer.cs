@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.btn_32_Khoi_TruyCapTrangWeb = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.btn_32_Khoi_TruyCapTrangWeb);
             this.groupBox1.Location = new System.Drawing.Point(445, 26);
@@ -45,6 +46,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TestCase_Login";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(23, 79);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(244, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button1";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btn_32_Khoi_TruyCapTrangWeb
             // 
@@ -58,28 +69,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(118, 359);
+            this.button1.Location = new System.Drawing.Point(23, 117);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(23, 79);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(244, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button1";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";

@@ -85,5 +85,103 @@ namespace _32_Khoi_N1_KiemThuWebSiteAkko
            
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //32_Khoi
+            //tat man den
+            ChromeDriverService chrome_khoi_32 = ChromeDriverService.CreateDefaultService();
+            chrome_khoi_32.HideCommandPromptWindow = true;
+            IWebDriver driver = new ChromeDriver(chrome_khoi_32);
+            //gọi trang web
+            driver.Navigate().GoToUrl("https://en.akkogear.com/");
+            Thread.Sleep(2000);
+
+
+            //Đăng nhập vào trang web
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div[2]/div/div[1]/div[2]/a")).Click();
+            driver.FindElement(By.Name("user_name")).SendKeys("voduykhoi32");
+            driver.FindElement(By.CssSelector("input[type='password']")).SendKeys("khoi123456");
+            driver.FindElement(By.ClassName("login_btn")).Click();
+            Thread.Sleep(1000);
+
+
+
+
+            //nhấn vào icon giỏ hàng
+            driver.FindElement(By.CssSelector(".elms_shop_cart.akko_cart_icon.elms_shop_cart > a")).Click();
+            Thread.Sleep(2000);
+
+            //nhấn vào + tăng số lượng sản phẩm
+            driver.FindElement(By.CssSelector(".quantity-button.quantity-up")).Click();
+            Thread.Sleep(2000);
+
+            //nhấn vào button "UpdateCart"
+            driver.FindElement(By.Name("update_cart")).Click();
+            Thread.Sleep(3000);
+
+
+            //Gán giá trị tổng sản phẩm
+            IWebElement countCartAfter = driver.FindElement(By.XPath("/html/body/div[2]/div/div[2]/div[2]/div/div[1]/div[1]/div/span"));
+            int actual = int.Parse(countCartAfter.Text);
+            Console.WriteLine(actual);
+            int expected = 3;
+            // Kiểm tra
+            //chuẩn bị trong giỏ hàng ít nhất 1 sản phẩm 
+            //tổng sp=1;
+            //expect=2;
+       
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //32_Khoi
+            //tat man den
+            ChromeDriverService chrome_khoi_32 = ChromeDriverService.CreateDefaultService();
+            chrome_khoi_32.HideCommandPromptWindow = true;
+            IWebDriver driver = new ChromeDriver(chrome_khoi_32);
+            //gọi trang web
+            driver.Navigate().GoToUrl("https://en.akkogear.com/");
+            Thread.Sleep(2000);
+
+
+            //Đăng nhập vào trang web
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div[2]/div[2]/div/div[1]/div[2]/a")).Click();
+            driver.FindElement(By.Name("user_name")).SendKeys("voduykhoi32");
+            driver.FindElement(By.CssSelector("input[type='password']")).SendKeys("khoi123456");
+            driver.FindElement(By.ClassName("login_btn")).Click();
+            Thread.Sleep(1000);
+
+
+
+
+            //nhấn vào icon giỏ hàng
+            driver.FindElement(By.CssSelector(".elms_shop_cart.akko_cart_icon.elms_shop_cart > a")).Click();
+            Thread.Sleep(2000);
+
+
+
+
+            //Gán giá trị tổng sản phẩm
+            // Lấy danh sách các phần tử có class "product-subtotal"
+        var subtotalElements = driver.FindElements(By.ClassName("product-subtotal"));
+
+        float total = 0;
+
+        // Duyệt qua từng phần tử và tính tổng giá tiền
+        foreach (var element in subtotalElements)
+        {
+                string priceText = element.Text ;
+                int startIndex = priceText.IndexOf('$') + 1;
+                    string numberPart = priceText.Substring(startIndex).Trim();
+                    if (float.TryParse(numberPart, out float actual))
+                    {
+                        Console.WriteLine(actual);
+                        total += actual;
+                    }
+            }
+            // In tổng giá tiền
+            Console.WriteLine("Tổng giá tiền: AUD $" + total);
+        }
     }
 }
